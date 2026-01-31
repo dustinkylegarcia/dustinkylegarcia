@@ -31,12 +31,9 @@ export function Navbar() {
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
+              className="text-xl font-bold text-gradient"
             >
-              <img 
-                src="/logo.png" 
-                alt="TIN Logo" 
-                className="h-8 w-auto"
-              />
+              &lt;/&gt;TIN
             </motion.div>
           </Link>
 
