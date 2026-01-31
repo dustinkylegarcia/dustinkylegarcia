@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
+  { href: "/certifications", label: "Certifications" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -27,13 +28,16 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <motion.span
-              className="text-xl font-bold text-gradient"
+            <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              {"</>"}TIN
-            </motion.span>
+              <img 
+                src="/logo.png" 
+                alt="TIN Logo" 
+                className="h-8 w-auto"
+              />
+            </motion.div>
           </Link>
 
           {/* Desktop Nav */}
