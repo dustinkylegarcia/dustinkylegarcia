@@ -7,10 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import IntroLoader from "@/components/IntroLoader";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import Projects from "./pages/Projects";
-import Certifications from "./pages/Certifications";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
@@ -40,10 +37,7 @@ const App = () => {
               <main>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
                   <Route path="/projects" element={<Projects />} />
-                  <Route path="/certifications" element={<Certifications />} />
-                  <Route path="/contact" element={<Contact />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
