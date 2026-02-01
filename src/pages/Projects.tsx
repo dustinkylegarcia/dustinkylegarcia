@@ -24,6 +24,11 @@ const projects = [
     description: "A static website showcasing popular destinations in Japan.",
     link: "https://dustinkylegarcia.github.io/Japan/",
   },
+  {
+    title: "First Portfolio Project",
+    description: "My first Portfolio project using JavaScript and CSS in Vercel",
+    link: "https://dustinkylegarcia.vercel.app",
+  },
 ];
 
 export default function Projects() {

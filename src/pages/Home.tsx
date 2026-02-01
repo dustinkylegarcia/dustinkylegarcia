@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-import { PageTransition, staggerContainer, fadeInUp } from "@/components/PageTransition";
+import {
+  PageTransition,
+  staggerContainer,
+  fadeInUp,
+} from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,10 +35,30 @@ import { toast } from "sonner";
 
 // Social media links
 const socialLinks = [
-  { name: "GitHub", icon: Github, url: "https://github.com/dustinkylegarcia", color: "hover:text-foreground" },
-  { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/dustin-kyle-garcia-953682225", color: "hover:text-[#0A66C2]" },
-  { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/dustinkyle.garcia", color: "hover:text-[#1877F2]" },
-  { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/xdustinkyle", color: "hover:text-[#E4405F]" },
+  {
+    name: "GitHub",
+    icon: Github,
+    url: "https://github.com/dustinkylegarcia",
+    color: "hover:text-foreground",
+  },
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    url: "https://www.linkedin.com/in/dustin-kyle-garcia-953682225",
+    color: "hover:text-[#0A66C2]",
+  },
+  {
+    name: "Facebook",
+    icon: Facebook,
+    url: "https://www.facebook.com/dustinkyle.garcia",
+    color: "hover:text-[#1877F2]",
+  },
+  {
+    name: "Instagram",
+    icon: Instagram,
+    url: "https://www.instagram.com/xdustinkyle",
+    color: "hover:text-[#E4405F]",
+  },
 ];
 
 // Skills data
@@ -83,7 +107,8 @@ const certifications: Certification[] = [
     title: "Web Development Fundamentals",
     issuer: "Sample Issuing Organization",
     date: "2024",
-    description: "Comprehensive training covering HTML, CSS, JavaScript, and modern web development practices.",
+    description:
+      "Comprehensive training covering HTML, CSS, JavaScript, and modern web development practices.",
     image: "/placeholder.svg",
     credentialUrl: "#",
   },
@@ -92,7 +117,8 @@ const certifications: Certification[] = [
     title: "Backend Development with Node.js",
     issuer: "Sample Issuing Organization",
     date: "2024",
-    description: "In-depth course on building RESTful APIs, database integration, and server-side development.",
+    description:
+      "In-depth course on building RESTful APIs, database integration, and server-side development.",
     image: "/placeholder.svg",
     credentialUrl: "#",
   },
@@ -101,7 +127,8 @@ const certifications: Certification[] = [
     title: "Database Management",
     issuer: "Sample Issuing Organization",
     date: "2023",
-    description: "Training on SQL, PostgreSQL, MySQL, and database design principles.",
+    description:
+      "Training on SQL, PostgreSQL, MySQL, and database design principles.",
     image: "/placeholder.svg",
     credentialUrl: "#",
   },
@@ -153,13 +180,17 @@ export default function Home() {
               animate={{ opacity: 0.15 }}
               transition={{ delay: 1 + index * 0.3, duration: 1 }}
               className={`absolute hidden lg:block text-xs font-mono text-primary/60 whitespace-pre bg-primary/5 p-3 rounded-lg border border-primary/10 ${
-                index === 0 ? "top-32 left-8" : index === 1 ? "top-48 right-12" : "bottom-32 left-16"
+                index === 0
+                  ? "top-32 left-8"
+                  : index === 1
+                    ? "top-48 right-12"
+                    : "bottom-32 left-16"
               }`}
             >
               {code}
             </motion.div>
           ))}
-          
+
           {/* Decorative gradient blobs */}
           <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
@@ -188,7 +219,11 @@ export default function Home() {
             <span className="text-foreground">Hi, I&apos;m </span>
             <span className="text-gradient">
               <Typewriter
-                words={["a Back-End Developer", "a Web Developer", "Dustin Kyle"]}
+                words={[
+                  "Dustin Kyle",
+                  "a Web Developer",
+                  "a Backend Developer",
+                ]}
                 loop
                 cursor
                 cursorStyle="|"
@@ -207,7 +242,9 @@ export default function Home() {
                        max-w-xl md:max-w-2xl"
           >
             I build modern web applications using the tech stack I know,
-            with a focus on clean APIs and scalable back-end systems.
+            focusing on clean APIs, scalable back-end systems, and integrating
+            AI-assisted tools to enhance productivity,
+            debugging, and system design.
           </motion.p>
 
           {/* Social Media Links */}
@@ -305,23 +342,27 @@ export default function Home() {
             </motion.div>
 
             {/* Text */}
-            <motion.div variants={fadeInUp} className="text-center md:text-left">
+            <motion.div
+              variants={fadeInUp}
+              className="text-center md:text-left"
+            >
               <h3 className="text-xl sm:text-2xl font-semibold text-primary">
                 Hi, I&apos;m Dustin Kyle
               </h3>
 
               <p className="mt-4 text-sm sm:text-base md:text-lg text-muted-foreground">
-                Aspiring Full Stack Developer with hands-on experience building back-end
-                systems using Node.js and PostgreSQL, and a strong interest in creating
-                innovative technology solutions.
+                Aspiring Full Stack Developer with hands-on experience building
+                back-end systems using Node.js and PostgreSQL, and a strong
+                interest in creating innovative technology solutions.
               </p>
 
               <p className="mt-4 text-sm sm:text-base md:text-lg text-muted-foreground">
-                A graduate of the Polytechnic University of the Philippines – Sto. Tomas Campus
-                with a Bachelor's degree in Information Technology, awarded{" "}
+                A graduate of the Polytechnic University of the Philippines –
+                Sto. Tomas Campus with a Bachelor's degree in Information
+                Technology, awarded{" "}
                 <span className="font-medium text-foreground">Cum Laude</span>.
-                I bring a strong leadership background and a consistent record of academic
-                excellence as a President's Lister.
+                I bring a strong leadership background and a consistent record
+                of academic excellence as a President's Lister.
               </p>
             </motion.div>
           </motion.div>
@@ -341,12 +382,17 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.1 + categoryIndex * 0.1, duration: 0.4 }}
+                  transition={{
+                    delay: 0.1 + categoryIndex * 0.1,
+                    duration: 0.4,
+                  }}
                   whileHover={{ y: -4 }}
                   className="glass rounded-2xl shadow-card p-6 text-center hover:shadow-hover transition-shadow duration-300"
                 >
-                  <h4 className="flex items-center justify-center gap-2
-                                 text-lg sm:text-xl font-semibold text-primary mb-4">
+                  <h4
+                    className="flex items-center justify-center gap-2
+                                 text-lg sm:text-xl font-semibold text-primary mb-4"
+                  >
                     <category.icon size={20} />
                     {category.title}
                   </h4>
@@ -358,7 +404,9 @@ export default function Home() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.2 + categoryIndex * 0.1 + skillIndex * 0.05 }}
+                        transition={{
+                          delay: 0.2 + categoryIndex * 0.1 + skillIndex * 0.05,
+                        }}
                         whileHover={{ scale: 1.05 }}
                         className="flex items-center gap-2 px-3 py-1.5 text-xs sm:text-sm
                                    bg-primary/10 text-primary rounded-full"
@@ -392,7 +440,8 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Professional certifications and credentials that validate my skills and expertise.
+              Professional certifications and credentials that validate my
+              skills and expertise.
             </p>
           </motion.div>
 
@@ -422,7 +471,7 @@ export default function Home() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                  
+
                   {/* Date Badge */}
                   <div className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1 bg-background/80 backdrop-blur-sm rounded-full text-xs font-medium text-foreground">
                     <Calendar className="h-3 w-3" />
@@ -435,11 +484,11 @@ export default function Home() {
                   <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                     {cert.title}
                   </h3>
-                  
+
                   <p className="mt-1 text-sm text-primary/80 font-medium">
                     {cert.issuer}
                   </p>
-                  
+
                   <p className="mt-3 text-sm text-muted-foreground line-clamp-3">
                     {cert.description}
                   </p>
@@ -451,7 +500,11 @@ export default function Home() {
                       size="sm"
                       className="mt-4 w-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
                     >
-                      <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={cert.credentialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         View Credential
                         <ExternalLink className="ml-2 h-3.5 w-3.5" />
                       </a>
@@ -506,7 +559,9 @@ export default function Home() {
                 type="text"
                 placeholder="John Doe"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 required
                 className="bg-background/50 border-border focus:border-primary transition-colors"
               />
@@ -522,7 +577,9 @@ export default function Home() {
                 type="email"
                 placeholder="john@example.com"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 required
                 className="bg-background/50 border-border focus:border-primary transition-colors"
               />
@@ -538,7 +595,9 @@ export default function Home() {
                 rows={4}
                 placeholder="Tell me about your project or just say hi!"
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
                 required
                 className="bg-background/50 border-border focus:border-primary transition-colors resize-none"
               />

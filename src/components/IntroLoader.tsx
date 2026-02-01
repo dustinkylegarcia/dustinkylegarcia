@@ -32,7 +32,7 @@ export default function IntroLoader() {
           <h1 className="text-foreground text-2xl font-semibold tracking-wide">
             DUSTIN KYLE
           </h1>
-          <span className="text-muted-foreground text-sm">Portfolio</span>
+          <span className="text-muted-foreground text-sm">Web Developer</span>
         </div>
       </motion.div>
     </motion.div>
