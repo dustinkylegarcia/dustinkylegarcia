@@ -32,9 +32,9 @@ import { toast } from "sonner";
 // Social media links
 const socialLinks = [
   { name: "GitHub", icon: Github, url: "https://github.com/dustinkylegarcia", color: "hover:text-foreground" },
-  { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/dustinkylegarcia", color: "hover:text-[#0A66C2]" },
-  { name: "Facebook", icon: Facebook, url: "https://facebook.com/dustinkylegarcia", color: "hover:text-[#1877F2]" },
-  { name: "Instagram", icon: Instagram, url: "https://instagram.com/dustinkylegarcia", color: "hover:text-[#E4405F]" },
+  { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/dustin-kyle-garcia-953682225", color: "hover:text-[#0A66C2]" },
+  { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/dustinkyle.garcia", color: "hover:text-[#1877F2]" },
+  { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/xdustinkyle", color: "hover:text-[#E4405F]" },
 ];
 
 // Skills data
