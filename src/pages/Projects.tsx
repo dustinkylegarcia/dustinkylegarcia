@@ -8,26 +8,37 @@ const projects = [
     title: "My GitHub Portfolio",
     description: "A collection of my projects and experiments.",
     link: "https://dustinkylegarcia.github.io/",
+    image: "https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=800&q=80", // GitHub themed image
   },
   {
     title: "Valorant Cards API",
     description: "A web app consuming a public API with JSON responses.",
     link: "https://dustinkylegarcia.github.io/API/",
+    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80", // Gaming/API themed
   },
   {
     title: "Embed Video Page",
     description: "A page using YouTube embed API with structured content.",
     link: "https://dustinkylegarcia.github.io/MIDTERM/",
+    image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80", // Video/Media themed
   },
   {
     title: "Japan Famous Places",
     description: "A static website showcasing popular destinations in Japan.",
     link: "https://dustinkylegarcia.github.io/Japan/",
+    image: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=80", // Japan themed
   },
   {
     title: "First Portfolio Project",
     description: "My first Portfolio project using JavaScript and CSS in Vercel",
     link: "https://dustinkylegarcia.vercel.app",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80", // Code/Development themed
+  },
+  {
+    title: "Gastos Tracker",
+    description: "My first small project that lets you track your expenses.",
+    link: "https://gastostrackerph.lovable.app",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80", // Finance/Tracking themed
   },
 ];
 
@@ -55,7 +66,7 @@ export default function Projects() {
             variants={staggerContainer}
             initial="initial"
             animate="animate"
-            className="grid gap-6 sm:grid-cols-2"
+            className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2"
           >
             {projects.map((project, index) => (
               <motion.a
@@ -66,28 +77,70 @@ export default function Projects() {
                 variants={fadeInUp}
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                className="group glass rounded-2xl p-6 shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer block"
+                className="group glass rounded-2xl overflow-hidden shadow-card hover:shadow-hover transition-all duration-300 cursor-pointer block"
               >
-                <div className="flex items-start justify-between">
-                  <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
+                {/* Image Container with Overlay */}
+                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5">
+                  <motion.img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    initial={{ scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  />
+                  
+                  {/* Gradient Overlay */}
                   <motion.div
-                    initial={{ opacity: 0.5, x: -4 }}
-                    whileHover={{ opacity: 1, x: 0 }}
-                    className="text-muted-foreground group-hover:text-primary transition-colors"
+                    className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent"
+                    initial={{ opacity: 0.6 }}
+                    whileHover={{ opacity: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  {/* Floating External Link Icon */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8, x: 10, y: -10 }}
+                    whileHover={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm p-2 rounded-full shadow-lg"
                   >
-                    <ExternalLink size={18} />
+                    <ExternalLink size={18} className="text-primary" />
                   </motion.div>
                 </div>
 
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {project.description}
-                </p>
+                {/* Content Section */}
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                  </div>
 
-                <div className="mt-4 flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  View Live Demo
-                  <ExternalLink size={14} />
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+
+                  {/* Call to Action */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    whileHover={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center gap-2 text-sm font-medium text-primary"
+                  >
+                    <span>View Live Demo</span>
+                    <motion.div
+                      animate={{ x: [0, 4, 0] }}
+                      transition={{ 
+                        duration: 1.5, 
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <ExternalLink size={14} />
+                    </motion.div>
+                  </motion.div>
                 </div>
               </motion.a>
             ))}
