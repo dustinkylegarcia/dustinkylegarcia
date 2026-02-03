@@ -40,6 +40,12 @@ const projects = [
     link: "https://gastostrackerph.lovable.app",
     image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80", // Finance/Tracking themed
   },
+  {
+    title: "Pag-ibig Properties",
+    description: "A landing page for real estate website showcasing properties for sale and rent.",
+    link: "https://pagibigproperties.lovable.app",
+    image: "https://plus.unsplash.com/premium_photo-1679582754971-5a2d8ae7e6fa?q=80&w=1170", // Finance/Tracking themed
+  },
 ];
 
 export default function Projects() {

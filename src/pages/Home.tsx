@@ -283,7 +283,7 @@ export default function Home() {
               size="lg"
               className="gradient-accent text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
             >
-              <a href="/Garcia_CV.pdf" download>
+              <a href="/GARCIA_RESUME.pdf" download>
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume
               </a>
