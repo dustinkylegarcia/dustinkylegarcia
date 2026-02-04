@@ -46,6 +46,18 @@ const projects = [
     link: "https://pagibigproperties.lovable.app",
     image: "https://plus.unsplash.com/premium_photo-1679582754971-5a2d8ae7e6fa?q=80&w=1170", // Finance/Tracking themed
   },
+  {
+    title: "Nexus Gaming",
+    description: "A landing page for a gaming website showcasing upcoming games and events.",
+    link: "https://nexusgamingph.lovable.app",
+    image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1265", // Gaming themed
+  },
+  {
+    title: "Restaurant Landing Page",
+    description: "A landing page for a restaurant website showcasing menu and reservations.",
+    link: "https://dkmgrestaurant.lovable.app",
+    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&q=80", // Restaurant themed
+  },
 ];
 
 export default function Projects() {
