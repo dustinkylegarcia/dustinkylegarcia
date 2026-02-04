@@ -58,6 +58,12 @@ const projects = [
     link: "https://dkmgrestaurant.lovable.app",
     image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&q=80", // Restaurant themed
   },
+  {
+    title: "Fitness Landing Page",
+    description: "A landing page for a fitness website showcasing workouts and nutrition.",
+    link: "https://fitnessph.vercel.app",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", // Fitness themed
+  },
 ];
 
 export default function Projects() {
