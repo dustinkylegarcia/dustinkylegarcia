@@ -64,6 +64,12 @@ const projects = [
     link: "https://fitnessph.vercel.app",
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", // Fitness themed
   },
+  {
+    title: "Digital Minimalism Landing Page",
+    description: "A landing page for people who wants peace and silence across the internet.",
+    link: "https://digitalminimalism.lovable.app",
+    image: "https://images.unsplash.com/photo-1520962880247-cfaf541c8724?q=80", // Fitness themed
+  },
 ];
 
 export default function Projects() {
