@@ -29,9 +29,18 @@ import {
   Linkedin,
   Facebook,
   Instagram,
+  ChevronDown,
+  Loader2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  contactSchema,
+  getFieldErrors,
+  type ContactFieldErrors,
+  type ContactFormData,
+} from "@/lib/contactValidation";
 
 // Social media links
 const socialLinks = [
@@ -39,25 +48,25 @@ const socialLinks = [
     name: "GitHub",
     icon: Github,
     url: "https://github.com/dustinkylegarcia",
-    color: "hover:text-foreground",
+    color: "hover:text-brand-github dark:hover:text-foreground",
   },
   {
     name: "LinkedIn",
     icon: Linkedin,
     url: "https://www.linkedin.com/in/dustin-kyle-garcia-953682225",
-    color: "hover:text-[#0A66C2]",
+    color: "hover:text-brand-linkedin",
   },
   {
     name: "Facebook",
     icon: Facebook,
     url: "https://www.facebook.com/dustinkyle.garcia",
-    color: "hover:text-[#1877F2]",
+    color: "hover:text-brand-facebook",
   },
   {
     name: "Instagram",
     icon: Instagram,
     url: "https://www.instagram.com/xdustinkyle",
-    color: "hover:text-[#E4405F]",
+    color: "hover:text-brand-instagram",
   },
 ];
 
@@ -150,27 +159,61 @@ WHERE status = 'active'
 ORDER BY created_at DESC;`,
 ];
 
+const emptyForm: ContactFormData = { name: "", email: "", message: "" };
+
 export default function Home() {
   useEffect(() => {
     document.title = "</>TIN | Home";
   }, []);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState<ContactFormData>(emptyForm);
+  const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const parsed = contactSchema.safeParse(formData);
+    if (!parsed.success) {
+      setFieldErrors(getFieldErrors(parsed.error));
+      return;
+    }
+
+    setFieldErrors({});
+    setSubmitting(true);
+
+    const { error } = await supabase
+      .from("contact_messages")
+      .insert({
+        name: parsed.data.name,
+        email: parsed.data.email,
+        message: parsed.data.message,
+      });
+
+    setSubmitting(false);
+
+    if (error) {
+      toast.error(
+        "Something went wrong sending your message. Please try again."
+      );
+      return;
+    }
+
     toast.success("Message sent successfully! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    setFormData(emptyForm);
   };
 
   return (
     <PageTransition>
       {/* Hero Section */}
       <section className="min-h-screen w-full gradient-hero flex items-center justify-center pt-16 relative overflow-hidden">
+        {/* Dot grid texture */}
+        <div className="absolute inset-0 bg-dots pointer-events-none" aria-hidden />
+
         {/* Floating Code Snippets - Decorative */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {codeSnippets.map((code, index) => (
@@ -302,10 +345,28 @@ export default function Home() {
             </Button>
           </motion.div>
         </motion.div>
+
+        {/* Scroll hint */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 0.6 }}
+          onClick={() => scrollToSection("about")}
+          aria-label="Scroll to About section"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10
+                     text-muted-foreground hover:text-primary transition-colors"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown size={24} />
+          </motion.div>
+        </motion.button>
       </section>
 
       {/* About Section */}
-      <section id="about" className="w-full gradient-hero py-20">
+      <section id="about" className="w-full gradient-hero py-20 scroll-mt-16">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
@@ -424,7 +485,10 @@ export default function Home() {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" className="w-full bg-secondary/30 py-20">
+      <section
+        id="certifications"
+        className="w-full bg-secondary/30 py-20 scroll-mt-16"
+      >
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -518,7 +582,10 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="w-full gradient-hero py-20">
+      <section
+        id="contact"
+        className="w-full gradient-hero py-20 scroll-mt-16"
+      >
         <div className="w-full max-w-xl mx-auto px-4 sm:px-6 text-center">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
@@ -547,70 +614,108 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.5 }}
             onSubmit={handleSubmit}
+            noValidate
             className="mt-8 glass rounded-2xl p-6 sm:p-8 shadow-card space-y-5 text-left"
           >
             {/* Name Field */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <label
+                htmlFor="contact-name"
+                className="flex items-center gap-2 text-sm font-medium text-foreground"
+              >
                 <User size={14} />
                 Your Name
               </label>
               <Input
+                id="contact-name"
                 type="text"
                 placeholder="John Doe"
                 value={formData.name}
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                required
+                aria-invalid={Boolean(fieldErrors.name)}
                 className="bg-background/50 border-border focus:border-primary transition-colors"
               />
+              {fieldErrors.name && (
+                <p className="text-xs text-destructive">{fieldErrors.name}</p>
+              )}
             </div>
 
             {/* Email Field */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <label
+                htmlFor="contact-email"
+                className="flex items-center gap-2 text-sm font-medium text-foreground"
+              >
                 <Mail size={14} />
                 Your Email
               </label>
               <Input
+                id="contact-email"
                 type="email"
                 placeholder="john@example.com"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
-                required
+                aria-invalid={Boolean(fieldErrors.email)}
                 className="bg-background/50 border-border focus:border-primary transition-colors"
               />
+              {fieldErrors.email && (
+                <p className="text-xs text-destructive">{fieldErrors.email}</p>
+              )}
             </div>
 
             {/* Message Field */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+              <label
+                htmlFor="contact-message"
+                className="flex items-center gap-2 text-sm font-medium text-foreground"
+              >
                 <MessageSquare size={14} />
                 Your Message
               </label>
               <Textarea
+                id="contact-message"
                 rows={4}
                 placeholder="Tell me about your project or just say hi!"
                 value={formData.message}
                 onChange={(e) =>
                   setFormData({ ...formData, message: e.target.value })
                 }
-                required
+                aria-invalid={Boolean(fieldErrors.message)}
                 className="bg-background/50 border-border focus:border-primary transition-colors resize-none"
               />
+              {fieldErrors.message ? (
+                <p className="text-xs text-destructive">
+                  {fieldErrors.message}
+                </p>
+              ) : (
+                <p className="text-xs text-muted-foreground/70">
+                  {formData.message.length}/1000
+                </p>
+              )}
             </div>
 
             {/* Submit Button */}
             <Button
               type="submit"
               size="lg"
-              className="w-full gradient-accent text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+              disabled={submitting}
+              className="w-full gradient-accent text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:translate-y-0"
             >
-              <Send className="mr-2 h-4 w-4" />
-              Send Message
+              {submitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="mr-2 h-4 w-4" />
+                  Send Message
+                </>
+              )}
             </Button>
           </motion.form>
         </div>
