@@ -1,6 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { motion, useScroll } from "framer-motion";
 import { ThemeToggle } from "./ThemeToggle";
+import { BackToTop } from "./BackToTop";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
@@ -10,93 +11,150 @@ const navLinks = [
   { href: "/projects", label: "Projects" },
 ];
 
+const sectionLinks = [
+  { id: "about", label: "About" },
+  { id: "certifications", label: "Certifications" },
+  { id: "contact", label: "Contact" },
+];
+
 export function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const goToSection = (id: string) => {
+    setIsOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/");
+      window.setTimeout(() => scrollToSection(id), 150);
+    } else {
+      scrollToSection(id);
+    }
+  };
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 glass"
-    >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-              className="text-xl font-bold text-gradient"
-            >
-              &lt;/&gt;TIN
-            </motion.div>
-          </Link>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+    <>
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50 glass"
+      >
+        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+                className="text-xl font-bold text-gradient"
               >
-                {location.pathname === link.href && (
-                  <motion.span
-                    layoutId="navbar-indicator"
-                    className="absolute inset-0 rounded-lg bg-primary/10"
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </Link>
-            ))}
-          </div>
+                &lt;/&gt;TIN
+              </motion.div>
+            </Link>
 
-          {/* Right Side */}
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Nav */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden pb-4"
-          >
-            <div className="flex flex-col gap-2">
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    location.pathname === link.href
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                  }`}
+                  className="relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  {link.label}
+                  {location.pathname === link.href && (
+                    <motion.span
+                      layoutId="navbar-indicator"
+                      className="absolute inset-0 rounded-lg bg-primary/10"
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  )}
+                  <span className="relative z-10">{link.label}</span>
                 </Link>
               ))}
+
+              <span className="mx-2 h-4 w-px bg-border" aria-hidden />
+
+              {sectionLinks.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => goToSection(section.id)}
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {section.label}
+                </button>
+              ))}
             </div>
-          </motion.div>
-        )}
-      </nav>
-    </motion.header>
+
+            {/* Right Side */}
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+
+              {/* Mobile Menu Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
+          </div>
+
+          {/* Mobile Nav */}
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden pb-4"
+            >
+              <div className="flex flex-col gap-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      location.pathname === link.href
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+                <span className="my-1 h-px bg-border" aria-hidden />
+
+                {sectionLinks.map((section) => (
+                  <button
+                    key={section.id}
+                    onClick={() => goToSection(section.id)}
+                    className="px-4 py-2 rounded-lg text-sm font-medium text-left text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                  >
+                    {section.label}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </nav>
+
+        {/* Scroll progress bar */}
+        <motion.div
+          style={{ scaleX: scrollYProgress }}
+          className="absolute bottom-0 left-0 right-0 h-0.5 origin-left gradient-primary"
+          aria-hidden
+        />
+      </motion.header>
+
+      <BackToTop />
+    </>
   );
 }
