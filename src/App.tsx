@@ -40,9 +40,11 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/projects" element={<Projects />} />
+                  <Route path="/admin" element={<Admin />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
+              <Footer />
             </div>
           </BrowserRouter>
         </TooltipProvider>
