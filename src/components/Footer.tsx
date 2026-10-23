@@ -1,10 +1,23 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Facebook, Instagram } from "lucide-react";
 
 const socialLinks = [
   { icon: Github, href: "https://github.com/dustinkylegarcia", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:dustinkyle@email.com", label: "Email" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/dustin-kyle-garcia-953682225",
+    label: "LinkedIn",
+  },
+  {
+    icon: Facebook,
+    href: "https://www.facebook.com/dustinkyle.garcia",
+    label: "Facebook",
+  },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/xdustinkyle",
+    label: "Instagram",
+  },
 ];
 
 export function Footer() {
@@ -18,7 +31,8 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Dustin Kyle Garcia. All rights reserved.
+            © {new Date().getFullYear()} Dustin Kyle Garcia. All rights
+            reserved.
           </p>
 
           <div className="flex items-center gap-4">
