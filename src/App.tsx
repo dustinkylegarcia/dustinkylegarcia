@@ -5,9 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import IntroLoader from "@/components/IntroLoader";
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
@@ -38,9 +40,11 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/projects" element={<Projects />} />
+                  <Route path="/admin" element={<Admin />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
+              <Footer />
             </div>
           </BrowserRouter>
         </TooltipProvider>
